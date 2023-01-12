@@ -6,7 +6,7 @@ on:
       json:
         type: string
         description: JSON
-        default: "{}"
+        default: '{"id":"canaryf5","regions":{"us1":{}}}'
         required: true
       
 permissions:
@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: parse-customerid
         run: |
-          customer_id=$(echo "${{ inputs.json }}" | jq ".id")
+          customer_id=$(echo ${{ inputs.json }} | jq ".id")
           echo "$customer_id"
           echo "customer_id=$customer_id" >> $GITHUB_OUTPUT
       - name: parse-regions
