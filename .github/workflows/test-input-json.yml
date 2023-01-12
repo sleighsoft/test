@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: parse-customerid
         run: |
-          customer_id=$(echo '${{ inputs.json }}' | jq ".id" -4)
+          customer_id=$(echo '${{ inputs.json }}' | jq ".id" -r)
           echo "$customer_id"
           echo "customer_id=$customer_id" >> $GITHUB_OUTPUT
       - name: parse-regions
