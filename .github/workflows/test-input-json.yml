@@ -21,13 +21,17 @@ jobs:
       - name: parse-customerid
         run: |
           customer_id=$(echo ${{ inputs.json }} | jq ".id")
-          echo "$customer_id"
-          echo "customer_id=$customer_id" >> $GITHUB_OUTPUT
-      - name: parse-regions
-        run: |
-          regions=$(echo "${{ inputs.json }}" | jq ".regions | keys")
-          echo "$regions"
-          echo "regions=$regions" >> $GITHUB_OUTPUT
+          echo $customer_id
+      # - name: parse-customerid
+      #   run: |
+      #     customer_id=$(echo ${{ inputs.json }} | jq ".id")
+      #     echo "$customer_id"
+      #     echo "customer_id=$customer_id" >> $GITHUB_OUTPUT
+      # - name: parse-regions
+      #   run: |
+      #     regions=$(echo "${{ inputs.json }}" | jq ".regions | keys")
+      #     echo "$regions"
+      #     echo "regions=$regions" >> $GITHUB_OUTPUT
   create-customer:
     needs: parse-json
     runs-on: ubuntu-latest
