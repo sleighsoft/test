@@ -33,7 +33,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: regions
-        run: echo ${{ needs.parse-json.outputs.regions }}
+        run: |
+          echo ${{ needs.parse-json.outputs.customer_id }}
+          echo ${{ needs.parse-json.outputs.regions }}
   create-customer:
     needs: parse-json
     runs-on: ubuntu-latest
