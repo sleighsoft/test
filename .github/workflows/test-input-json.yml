@@ -20,7 +20,8 @@ jobs:
     steps:
       - name: parse-customerid
         run: |
-          customer_id=$(echo ${{ inputs.json }} | jq ".id")
+          echo "${{ inputs.json }}"
+          customer_id=$(echo "${{ inputs.json }}" | jq ".id" -r)
           echo $customer_id
       # - name: parse-customerid
       #   run: |
