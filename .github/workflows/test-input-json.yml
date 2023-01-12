@@ -25,7 +25,7 @@ jobs:
           echo "customer_id=$customer_id" >> $GITHUB_OUTPUT
       - name: parse-regions
         run: |
-          regions=$(echo '${{ inputs.json }}' | jq ".regions | keys")
+          regions=$(echo '${{ inputs.json }}' | jq ".regions | keys" -c)
           echo "$regions"
           echo "regions=$regions" >> $GITHUB_OUTPUT
   create-customer:
