@@ -28,12 +28,18 @@ jobs:
           regions=$(echo '${{ inputs.json }}' | jq ".regions | keys" -c)
           echo "$regions"
           echo "regions=$regions" >> $GITHUB_OUTPUT
+  test-output:
+    needs: parse-json
+    runs-on: ubuntu-latest
+    steps:
+      - name: regions
+        run: echo ${{ needs.parse-json.outputs.regions }}
   create-customer:
     needs: parse-json
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        region: "${{ needs.parse-json.outputs.regions }}"
+        region: ${{ fromJson(needs.parse-json.outputs.regions) }}
       fail-fast: false
     steps:
       - name: checkout
