@@ -20,10 +20,12 @@ jobs:
     steps:
       - name: parse-customerid
         run: |
-          echo "customer_id=$(echo ${{ inputs.json }} | jq ".id")" >> $GITHUB_OUTPUT
+          customer_id=$(echo ${{ inputs.json }} | jq ".id")
+          echo "customer_id=$customer_id" >> $GITHUB_OUTPUT
       - name: parse-regions
         run: |
-          echo "regions=$(echo ${{ inputs.json }} | jq ".regions | keys")" >> $GITHUB_OUTPUT
+          regions=$(echo ${{ inputs.json }} | jq ".regions | keys")
+          echo "regions=$regions" >> $GITHUB_OUTPUT
   create-customer:
     needs: parse-json
     runs-on: ubuntu-latest
