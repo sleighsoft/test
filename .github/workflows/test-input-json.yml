@@ -12,41 +12,43 @@ on:
 permissions:
   contents: read
 jobs:
-  json:
+  parse-json:
     runs-on: ubuntu-latest
     outputs:
-      customer_id: ${{ steps.customerid.outputs.customer_id }}
-      regions: ${{ steps.regions.outputs.regions }}
+      customer_id: ${{ steps.parse-customerid.outputs.customer_id }}
+      regions: ${{ steps.parse-regions.outputs.regions }}
     steps:
-      - name: customerid
+      - name: parse-customerid
+        id: parse-customerid
         run: |
           customer_id=$(echo '${{ inputs.json }}' | jq ".id" -r)
           echo "$customer_id"
           echo "customer_id=$customer_id" >> $GITHUB_OUTPUT
-      - name: regions
+      - name: parse-regions
+        id: parse-regions
         run: |
           regions=$(echo '${{ inputs.json }}' | jq ".regions | keys" -c)
           echo "$regions"
           echo "regions=$regions" >> $GITHUB_OUTPUT
   test-output:
-    needs: json
+    needs: parse-json
     runs-on: ubuntu-latest
     steps:
       - name: regions
         run: |
-          echo ${{ needs.json.outputs.customer_id }}
-          echo ${{ needs.json.outputs.regions }}
+          echo ${{ needs.parse-json.outputs.customer_id }}
+          echo ${{ needs.parse-json.outputs.regions }}
   create-customer:
-    needs: json
+    needs: parse-json
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        region: ${{ fromJson(needs.json.outputs.regions) }}
+        region: ${{ fromJson(needs.parse-json.outputs.regions) }}
       fail-fast: false
     steps:
       - name: checkout
         uses: actions/checkout@v3
       - name: echo
         run: |
-          echo "${{ needs.json.outputs.customer_id }}"
+          echo "${{ needs.parse-json.outputs.customer_id }}"
           echo "${{ matrix.region }}"
