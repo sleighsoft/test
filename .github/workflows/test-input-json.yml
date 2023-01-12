@@ -33,7 +33,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        customer_id: ${{ needs.parse-json.outputs.customer_id }}
         region: ${{ needs.parse-json.outputs.regions }}
       fail-fast: false
     steps:
@@ -41,5 +40,5 @@ jobs:
         uses: actions/checkout@v3
       - name: echo
         run: |
-          echo "${{ matrix.customer_id }}"
+          echo "${{ needs.parse-json.outputs.customer_id }}"
           echo "${{ matrix.region }}"
