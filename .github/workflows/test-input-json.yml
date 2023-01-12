@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        region: ${{ needs.parse-json.outputs.regions }}
+        region: ${{ fromJson(needs.parse-json.outputs.regions) }}
       fail-fast: false
     steps:
       - name: checkout
