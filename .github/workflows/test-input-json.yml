@@ -30,20 +30,12 @@ jobs:
           regions=$(echo '${{ inputs.json }}' | jq ".regions | keys" -c)
           echo "$regions"
           echo "regions=$regions" >> $GITHUB_OUTPUT
-  test-output:
-    needs: parse-json
-    runs-on: ubuntu-latest
-    steps:
-      - name: regions
-        run: |
-          echo ${{ needs.parse-json.outputs.customer_id }}
-          echo ${{ needs.parse-json.outputs.regions }}
   create-customer:
     needs: parse-json
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        region: ${{ fromJson(needs.parse-json.outputs.regions) }}
+        region: ${{ fromJSON(needs.parse-json.outputs.regions) }}
         stage: ["dev", "test", "uat", "prod"]
       fail-fast: false
     steps:
@@ -54,17 +46,17 @@ jobs:
           echo "$region_stages"
           echo "region_stages=$region_stages" >> $GITHUB_OUTPUT
       - name: checkout
-        if: contains(${{ steps.parse-region-stages.outputs.region_stages }}, ${{ matrix.stage}})
+        if: contains(${{ fromJSON(steps.parse-region-stages.outputs.region_stages) }}, ${{ matrix.stage }})
         uses: actions/checkout@v3
       - name: parse-region-location
-        if: contains(${{ steps.parse-region-stages.outputs.region_stages }}, ${{ matrix.stage}})
+        if: contains(${{ fromJSON(steps.parse-region-stages.outputs.region_stages) }}, ${{ matrix.stage }})
         id: parse-region-location
         run: |
           location=$(echo '${{ inputs.json }}' | jq ".regions | .${{ matrix.region }} | .location" -c)
           echo "$location"
           echo "location=$location" >> $GITHUB_OUTPUT
       - name: echo
-        if: contains(${{ steps.parse-region-stages.outputs.region_stages }}, ${{ matrix.stage}})
+        if: contains(${{ fromJSON(steps.parse-region-stages.outputs.region_stages) }}, ${{ matrix.stage }})
         run: |
           echo "${{ needs.parse-json.outputs.customer_id }}"
           echo "${{ matrix.region }}"
