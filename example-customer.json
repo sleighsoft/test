@@ -1,0 +1,46 @@
+{
+    "id": "canaryf5",
+    "name": "canary",
+    "hash": "f5",
+    "enabled": false,
+    "regions": {
+      "us1": {
+        "location": "centralus",
+        "connector": {
+          "service_principal": "c60-customer-customer_id:8-region:4-connector",
+          "qc": { "type": "stonemont", "name": "mock" },
+          "dispatch": { "type": "command-alkon", "name": "mock" },
+          "batch": { "type": "command-alkon", "name": "mock" }
+        },
+        "stages": {
+          "dev": {
+            "data": {
+              "service_principal": "c60-customer-customer_id:8-region:4-stage:4",
+              "resource_configuration": { "datmssqlserver": { "sku": "50" } }
+            }
+          },
+          "test": {
+            "data": {
+              "service_principal": "c60-customer-customer_id:8-region:4-stage:4",
+              "resource_configuration": { "datmssqlserver": { "sku": "50" } }
+            }
+          },
+          "uat": {
+            "data": {
+              "service_principal": "c60-customer-customer_id:8-region:4-stage:4",
+              "resource_configuration": { "datmssqlserver": { "sku": "50" } }
+            }
+          },
+          "prod": {
+            "data": {
+              "service_principal": "c60-customer-customer_id:8-region:4-stage:4",
+              "resource_configuration": { "datmssqlserver": { "sku": "50" } }
+            }
+          }
+        }
+      },
+      "us2": {},
+      "eu1": {}
+    }
+  }
+  

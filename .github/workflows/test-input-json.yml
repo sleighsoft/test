@@ -12,11 +12,30 @@ on:
 permissions:
   contents: read
 jobs:
-  create-customer:
+  parse-json:
     runs-on: ubuntu-latest
+    outputs:
+      customer_id: ${{ steps.parse-customerid.outputs.customer_id }}
+      regions: ${{ steps.parse-regions.outputs.regions }}
     steps:
-      - name: release-checkout
+      - name: parse-customerid
+        run: |
+          echo "customer_id=$(echo ${{ inputs.json }} | jq ".id") >> $GITHUB_OUTPUT
+      - name: parse-regions
+        run: |
+          echo "regions=$(echo ${{ inputs.json }} | jq ".regions | keys") >> $GITHUB_OUTPUT
+  create-customer:
+    needs: parse-json
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        customer_id: ${{ needs.parse-json.outputs.customer_id }}
+        region: ${{ needs.parse-json.outputs.regions }}
+      fail-fast: false
+    steps:
+      - name: checkout
         uses: actions/checkout@v3
       - name: echo
         run: |
-          echo "${{ inputs.json }}"
+          echo "${{ matrix.customer_id }}"
+          echo "${{ matrix.region }}"
