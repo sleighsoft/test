@@ -6,7 +6,7 @@ on:
       json:
         type: string
         description: JSON
-        default: '{"id":"canaryf5","name":"canary","hash":"f5","enabled":false,"regions":{"us1":{"location":"centralus","connector":{"service_principal":"c60-customer-customer_id:8-region:4-connector","qc":{"type":"stonemont","name":"mock"},"dispatch":{"type":"command-alkon","name":"mock"},"batch":{"type":"command-alkon","name":"mock"}},"stages":{"dev":{"data":{"service_principal":"c60-customer-customer_id:8-region:4-stage:4","resource_configuration":{"datmssqlserver":{"sku":"50"}}}},"test":{"data":{"service_principal":"c60-customer-customer_id:8-region:4-stage:4","resource_configuration":{"datmssqlserver":{"sku":"50"}}}},"uat":{"data":{"service_principal":"c60-customer-customer_id:8-region:4-stage:4","resource_configuration":{"datmssqlserver":{"sku":"50"}}}},"prod":{"data":{"service_principal":"c60-customer-customer_id:8-region:4-stage:4","resource_configuration":{"datmssqlserver":{"sku":"50"}}}}}},"us2":{},"eu1":{}}}  '
+        default: '{"id":"canaryf5","name":"canary","hash":"f5","enabled":false,"regions":{"us1":{"location":"centralus","connector":{"service_principal":"c60-customer-customer_id:8-region:4-connector","qc":{"type":"stonemont","name":"mock"},"dispatch":{"type":"command-alkon","name":"mock"},"batch":{"type":"command-alkon","name":"mock"}},"stages":{"dev":{"data":{"service_principal":"c60-customer-customer_id:8-region:4-stage:4","resource_configuration":{"datmssqlserver":{"sku":"50"}}}},"test":{"data":{"service_principal":"c60-customer-customer_id:8-region:4-stage:4","resource_configuration":{"datmssqlserver":{"sku":"50"}}}},"uat":{"data":{"service_principal":"c60-customer-customer_id:8-region:4-stage:4","resource_configuration":{"datmssqlserver":{"sku":"50"}}}},"prod":{"data":{"service_principal":"c60-customer-customer_id:8-region:4-stage:4","resource_configuration":{"datmssqlserver":{"sku":"50"}}}}}},"us2":{"location":"centralus","connector":{"service_principal":"c60-customer-customer_id:8-region:4-connector","qc":{"type":"stonemont","name":"mock"},"dispatch":{"type":"command-alkon","name":"mock"},"batch":{"type":"command-alkon","name":"mock"}},"stages":{"dev":{"data":{"service_principal":"c60-customer-customer_id:8-region:4-stage:4","resource_configuration":{"datmssqlserver":{"sku":"50"}}}}}},"eu1":{}}}'
         required: true
       
 permissions:
@@ -44,17 +44,30 @@ jobs:
     strategy:
       matrix:
         region: ${{ fromJson(needs.parse-json.outputs.regions) }}
+        stage: ["dev", "test", "uat", "prod"]
       fail-fast: false
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: echo
+      - name: parse-region-stages
+        id: parse-region-stages
         run: |
-          echo "${{ needs.parse-json.outputs.customer_id }}"
-          echo "${{ matrix.region }}"
+          region_stages=$(echo '${{ inputs.json }}' | jq ".regions | .${{ matrix.region }} | .stages | keys" -c)
+          echo "$region_stages"
+          echo "region_stages=$region_stages" >> $GITHUB_OUTPUT
+      - name: checkout
+        if: contains(${{ steps.parse-region-stages.outputs.region_stages }}, ${{ matrix.stage}})
+        uses: actions/checkout@v3
       - name: parse-region-location
+        if: contains(${{ steps.parse-region-stages.outputs.region_stages }}, ${{ matrix.stage}})
         id: parse-region-location
         run: |
           location=$(echo '${{ inputs.json }}' | jq ".regions | .${{ matrix.region }} | .location" -c)
           echo "$location"
           echo "location=$location" >> $GITHUB_OUTPUT
+      - name: echo
+        if: contains(${{ steps.parse-region-stages.outputs.region_stages }}, ${{ matrix.stage}})
+        run: |
+          echo "${{ needs.parse-json.outputs.customer_id }}"
+          echo "${{ matrix.region }}"
+
+
+# "c60-customer-${var.customer_id}-${var.region}-${each.key}"
