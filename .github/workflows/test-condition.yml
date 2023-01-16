@@ -1,0 +1,22 @@
+name: test-condition
+on:
+  workflow_dispatch:
+    inputs:
+      tfapply:
+        type: boolean
+        description: If true, "apply" terraform changes. Otherwise, run "plan"
+        default: false
+        required: true
+      
+permissions:
+  contents: read
+jobs:
+  parse-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: flag
+        id: flag
+        run: echo "flag=true" >> $GITHUB_OUTPUT
+      - name: lifecycle
+        if: ${{ steps.flag.outputs.flag }}
+        run: echo "Flag was true"
