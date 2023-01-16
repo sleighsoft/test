@@ -18,11 +18,11 @@ jobs:
         id: flag_true
         run: echo "flag_true=true" >> $GITHUB_OUTPUT
       - name: true-out
-        if: ${{ steps.flag_true.outputs.flag_true }} == true
+        if: ${{ fromJSON(steps.flag_true.outputs.flag_true) }}
         run: echo "Flag was true"
       - name: flag_false
         id: flag_false
         run: echo "flag_false=false" >> $GITHUB_OUTPUT
       - name: false-out
-        if: ${{ steps.flag_false.outputs.flag_false }} == false
+        if: ${{ fromJSON(steps.flag_false.outputs.flag_false) }}
         run: echo "Flag was true, expected skip!"
