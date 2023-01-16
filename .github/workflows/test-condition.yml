@@ -20,9 +20,18 @@ jobs:
       - name: true-out
         if: ${{ fromJSON(steps.flag_true.outputs.flag_true) }}
         run: echo "Flag was true"
+
       - name: flag_false
         id: flag_false
         run: echo "flag_false=false" >> $GITHUB_OUTPUT
       - name: false-out
         if: ${{ fromJSON(steps.flag_false.outputs.flag_false) }}
         run: echo "Flag was true, expected skip!"
+      
+      - name: flag_false_contains
+        id: flag_false_contains
+        run: echo "flag_false_contains=${{ contains(fromJSON('["testt", "hello"]'), 'test')}}" >> $GITHUB_OUTPUT
+      - name: false-out-contains
+        if: ${{ fromJSON(steps.flag_false_contains.outputs.flag_false_contains) }}
+        run: echo "Flag was true, expected skip!"
+      
