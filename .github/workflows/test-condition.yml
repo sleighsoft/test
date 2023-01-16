@@ -14,9 +14,15 @@ jobs:
   parse-json:
     runs-on: ubuntu-latest
     steps:
-      - name: flag
-        id: flag
-        run: echo "flag=true" >> $GITHUB_OUTPUT
+      - name: flag_true
+        id: flag_true
+        run: echo "flag_true=true" >> $GITHUB_OUTPUT
       - name: lifecycle
-        if: ${{ steps.flag.outputs.flag }}
+        if: ${{ steps.flag_true.outputs.flag_true }}
+        run: echo "Flag was true"
+      - name: flag_false
+        id: flag_false
+        run: echo "flag_false=false" >> $GITHUB_OUTPUT
+      - name: lifecycle
+        if: ${{ steps.flag_false.outputs.flag_false }}
         run: echo "Flag was true"
