@@ -55,3 +55,13 @@ jobs:
         if: ${{ fromJSON(steps.flag_true_contains_and.outputs.flag_true_contains_and) }}
         run: echo "Flag was true"
       
+      
+      - name: flag_false_contains_and
+        id: flag_false_contains_and
+        run: |
+          echo "flag_false_contains_and=${{ contains(fromJSON('["test", "hello"]'), 'test') && contains(fromJSON('["test", "hello"]'), 'notin') }}" >> $GITHUB_OUTPUT
+          echo $flag_false_contains_and
+      - name: true-out-contains
+        if: ${{ fromJSON(steps.flag_false_contains_and.outputs.flag_false_contains_and) }}
+        run: echo "Flag was true"
+      
