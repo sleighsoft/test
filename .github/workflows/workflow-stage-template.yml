@@ -12,6 +12,7 @@ on:
         type: string
 jobs:
   deploy-stage:
+    name: "deploy-stage-${{ inputs.region }}-${{ inputs.stage }}"
     runs-on: ubuntu-latest
     strategy:
       matrix:
