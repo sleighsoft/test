@@ -14,7 +14,7 @@ on:
         type: string
 jobs:
   deploy:
-    uses: ./.github/workflows/workflow-region-template.yml
+    uses: ./.github/workflow-templates/workflow-region-template.yml
     with:
       regions: ${{ inputs.regions }}
       stages: ${{ inputs.stages }}

@@ -12,7 +12,7 @@ on:
         type: string
 jobs:
   deploy-region:
-    uses: ./.github/workflows/workflow-stage-template.yml
+    uses: ./.github/workflow-templates/workflow-stage-template.yml
     strategy:
       matrix:
         region: ${{ fromJSON(inputs.regions) }}
