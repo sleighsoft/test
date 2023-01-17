@@ -1,6 +1,6 @@
 name: "workflow-test"
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       regions:
         description: "List of: ['regionId1', 'regionId2', ...]"
