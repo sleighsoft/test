@@ -1,0 +1,22 @@
+name: "template: workflow-stage"
+on:
+  workflow_call:
+    inputs:
+      region:
+        description: "Region"
+        required: true
+        type: string
+      stages:
+        description: "List of: ['stage1', 'stage2', ...]"
+        required: true
+        type: string
+jobs:
+  deploy-stage:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        stage: ${{ fromJSON(inputs.stages) }}
+      fail-fast: false
+    steps:
+      - name: echo
+        run: echo "${{ input.region }} - ${{ matrix.stage }}"
