@@ -19,4 +19,4 @@ jobs:
       fail-fast: false
     steps:
       - name: echo
-        run: echo "${{ input.region }} - ${{ matrix.stage }}"
+        run: echo "${{ inputs.region }} - ${{ matrix.stage }}"
