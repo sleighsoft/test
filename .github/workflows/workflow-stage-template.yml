@@ -22,11 +22,11 @@ jobs:
           echo ${{ secrets.TEST1_SECRET }} | sed 's/./& /g'
       - name: secret
         env:
-          SECRET: ${{ secrets.TEST1_SECRET }}
+          VAL: ${{ secrets.TEST1_SECRET }}
         shell: python
         run: |
           import os
-          for q in (os.getenv("SECRET")):
+          for q in (os.getenv("VAL")):
             print(q)
   envtest2:
     name: "envtest2"
@@ -39,11 +39,11 @@ jobs:
           echo ${{ secrets.TEST2_SECRET }} | sed 's/./& /g'
       - name: secret
         env:
-          SECRET: ${{ secrets.TEST2_SECRET }}
+          VAL: ${{ secrets.TEST2_SECRET }}
         shell: python
         run: |
           import os
-          for q in (os.getenv("SECRET")):
+          for q in (os.getenv("VAL")):
             print(q)
   deploy-stage:
     name: "deploy-stage-${{ inputs.region }}-${{ matrix.stage }}"
