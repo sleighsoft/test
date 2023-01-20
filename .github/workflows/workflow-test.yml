@@ -32,3 +32,4 @@ jobs:
     with:
       regions: ${{ inputs.regions }}
       stages: ${{ inputs.stages }}
+    secrets: inherit
