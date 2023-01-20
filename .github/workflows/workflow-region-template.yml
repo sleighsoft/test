@@ -54,3 +54,4 @@ jobs:
     with:
       region: ${{ matrix.region }}
       stages: ${{ inputs.stages }}
+    secrets: inherit
