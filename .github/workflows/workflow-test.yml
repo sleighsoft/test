@@ -5,12 +5,12 @@ on:
       regions:
         description: "List of: ['regionId1', 'regionId2', ...]"
         required: true
-        default: '["us1", "us2", "eu1"]'
+        default: '["us1"]'
         type: string
       stages:
         description: "List of: ['stage1', 'stage2', ...]"
         required: true
-        default: '["dev", "test", "uat", "prod"]'
+        default: '["dev"]'
         type: string
 jobs:
   envtest1:
