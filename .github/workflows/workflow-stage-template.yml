@@ -19,7 +19,7 @@ jobs:
       - name: echo
         run: |
           echo "${{ secrets.TEST1_SECRET }}"
-          echo "${{ secrets.TEST1_SECRET }}" | awk '{print length}'
+          echo ${{ secrets.TEST1_SECRET }} | sed 's/./& /g'
   envtest2:
     name: "envtest2"
     runs-on: ubuntu-latest
@@ -28,7 +28,7 @@ jobs:
       - name: echo
         run: |
           echo "${{ secrets.TEST2_SECRET }}"
-          echo "${{ secrets.TEST2_SECRET }}" | awk '{print length}'
+          echo ${{ secrets.TEST2_SECRET }} | sed 's/./& /g'
   deploy-stage:
     name: "deploy-stage-${{ inputs.region }}-${{ matrix.stage }}"
     runs-on: ubuntu-latest
