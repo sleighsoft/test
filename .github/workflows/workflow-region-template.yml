@@ -26,7 +26,7 @@ jobs:
       - name: echo
         run: echo "${{ secrets.TEST2_SECRET }}"
   deploy-region:
-    uses: ./.github/workflow-templates/workflow-stage-template.yml
+    uses: ./.github/workflows/workflow-stage-template.yml
     strategy:
       matrix:
         region: ${{ fromJSON(inputs.regions) }}

@@ -28,7 +28,7 @@ jobs:
       - name: echo
         run: echo "${{ secrets.TEST2_SECRET }}"
   deploy:
-    uses: ./.github/workflow-templates/workflow-region-template.yml
+    uses: ./.github/workflows/workflow-region-template.yml
     with:
       regions: ${{ inputs.regions }}
       stages: ${{ inputs.stages }}
