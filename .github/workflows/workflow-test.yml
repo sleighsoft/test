@@ -31,6 +31,7 @@ jobs:
           for q in (os.getenv("VAL")):
             print(q)
   envtest2:
+    needs: envtest1
     name: "envtest2"
     runs-on: ubuntu-latest
     environment: test2
@@ -48,6 +49,7 @@ jobs:
           for q in (os.getenv("VAL")):
             print(q)
   deploy:
+    needs: envtest2
     uses: ./.github/workflows/workflow-region-template.yml
     with:
       regions: ${{ inputs.regions }}
