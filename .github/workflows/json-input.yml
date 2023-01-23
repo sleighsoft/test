@@ -1,0 +1,17 @@
+name: "json-input"
+on:
+  workflow_dispatch:
+    inputs:
+      json:
+        description: "Non-minified JSON"
+        required: true
+        default: '{"stages":[1,2,3],"stages2":[1,2,3],"stages3":[1,2,3],"stages4":[1,2,3],"stages5":[1,2,3]}'
+        type: string
+jobs:
+  envtest1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: echo "${{ inputs.json }}"
+      - name: parse
+        run: echo '${{ inputs.json }}' | jq ".stages5" -c
