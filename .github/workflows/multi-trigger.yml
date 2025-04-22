@@ -7,11 +7,7 @@ on:
   pull_request:
     branches:
       - master
-  # workflow_call:
-  #   inputs:
-  #     someInput:
-  #       required: false
-  #       type: string
+  workflow_call:
 
 jobs:
   run-multi-trigger-job:
