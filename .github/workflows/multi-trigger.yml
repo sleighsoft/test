@@ -8,10 +8,6 @@ on:
     branches:
       - master
   workflow_call:
-      inputs:
-        someInput:
-          required: false
-          type: string
 
 jobs:
   run-multi-trigger-job:
