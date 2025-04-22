@@ -9,7 +9,7 @@
       "stages": {
         "dev": {
           "data": {
-            "resource_configuration": { "datmssqlserver": { "sku": "500" } }
+            "resource_configuration": { "datmssqlserver": { "sku": "5000" } }
           }
         },
         "test": {
