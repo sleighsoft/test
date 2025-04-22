@@ -1,0 +1,29 @@
+name: Multi-Trigger Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_call:
+    inputs:
+      someInput:
+        required: false
+        type: string
+
+jobs:
+  run-multi-trigger-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Display trigger info
+        run: |
+          echo "This workflow was triggered by ${{ github.event_name }}"
+          if [ "${{ inputs.someInput }}" ]; then
+            echo "Input provided: ${{ inputs.someInput }}"
+          fi
