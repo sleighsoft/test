@@ -3,10 +3,10 @@ name: Multi-Trigger Workflow
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
   workflow_call:
     inputs:
       someInput:
@@ -27,3 +27,22 @@ jobs:
           if [ "${{ inputs.someInput }}" ]; then
             echo "Input provided: ${{ inputs.someInput }}"
           fi
+
+  codeql-analysis:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: javascript
+          # Add additional languages like python, cpp, etc., if needed.
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
