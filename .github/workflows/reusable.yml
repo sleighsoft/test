@@ -1,6 +1,7 @@
 name: Reusable Echo Workflow
 on:
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   echo_job:
@@ -8,3 +9,8 @@ jobs:
     steps:
       - name: Echo Hello
         run: echo "hello"
+  print-workflow-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Workflow Name
+        run: echo "Workflow file name: $GITHUB_WORKFLOW"
