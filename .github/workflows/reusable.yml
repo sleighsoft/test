@@ -1,0 +1,10 @@
+name: Reusable Echo Workflow
+on:
+  workflow_call:
+
+jobs:
+  echo_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo Hello
+        run: echo "hello"
