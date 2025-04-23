@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Workflow Name
-        run: echo "Workflow file name: $GITHUB_WORKFLOW"
+        run: echo "Workflow file name $GITHUB_WORKFLOW"
