@@ -1,0 +1,7 @@
+name: Call reusable Workflow
+on:
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  callit:
+    uses: sleighsoft/test/.github/workflows/reusable.yml@master
