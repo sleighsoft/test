@@ -1,0 +1,7 @@
+name: Call reusable Workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  callit:
+    uses: sleighsoft/test/.github/workflows/B.yml@v2
