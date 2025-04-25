@@ -12,6 +12,8 @@ jobs:
   print-workflow-name:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
       - name: Print Workflow Name
         run: |
           echo "Workflow file name GITHUB_WORKFLOW $GITHUB_WORKFLOW"
