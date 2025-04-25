@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        versions: ["v*.*.*"] # Exclude all Minor and Patch versions
+    labels:
+      - "central-pipeline"
+    commit-message:
+      prefix: "chore" # Indicates a feature for new Major versions
+    allow:
+      - dependency-type: "direct"
