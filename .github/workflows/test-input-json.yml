@@ -46,7 +46,7 @@ jobs:
           echo "region_stages=$region_stages" >> $GITHUB_OUTPUT
       - name: checkout
         if: ${{ contains(fromJSON(steps.parse-region-stages.outputs.region_stages), matrix.stage) }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: parse-region-location
         if: ${{ contains(fromJSON(steps.parse-region-stages.outputs.region_stages), matrix.stage) }}
         id: parse-region-location
