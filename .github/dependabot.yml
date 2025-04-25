@@ -6,7 +6,8 @@ updates:
       interval: "daily"
     ignore:
       - dependency-name: "*"
-        versions: ["v*.*.*"] # Exclude all Minor and Patch versions
+        # versions: ["v*.*.*"] # Exclude all Minor and Patch versions
+        update-types: ["version-update:semver-patch", "version-update:semver-minor"]
     labels:
       - "central-pipeline"
     commit-message:
