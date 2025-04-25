@@ -20,4 +20,4 @@ jobs:
       - name: Print Workflow Name
         run: |
           echo "Uses without ref"
-      - uses: ./.github/action/simpleaction
+      - uses: ./.github/actions/simpleaction
