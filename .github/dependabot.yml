@@ -5,10 +5,8 @@ updates:
     schedule:
       interval: "daily"
     ignore:
-      - dependency-name: "*"
+      - dependency-name: "sleighsoft/test"
         update-types: ["version-update:semver-patch", "version-update:semver-minor"]
-    # labels:
-    #   - "central-pipeline"
     commit-message:
       prefix: "chore" # Indicates a feature for new Major versions
     allow:
