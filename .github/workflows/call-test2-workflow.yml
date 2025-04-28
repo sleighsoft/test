@@ -1,0 +1,8 @@
+name: Call Test2 Workflow
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  callit:
+    uses: sleighsoft/test2/.github/workflows/call-from-test.yml@main
