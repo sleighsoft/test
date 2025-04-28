@@ -5,4 +5,4 @@ on:
 
 jobs:
   callit:
-    uses: sleighsoft/test2/.github/workflows/call-from-test.yml@main
+    uses: sleighsoft/test2/.github/workflows/call-from-test-workflow.yml@main
