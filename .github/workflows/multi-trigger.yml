@@ -4,14 +4,10 @@ on:
   # push:
   #   branches:
   #     - master
-  pull_request:
-    branches:
-      - master
-  # workflow_call:
-  #   inputs:
-  #     someInput:
-  #       required: false
-  #       type: string
+  # pull_request:
+  #   branches:
+  #     - master
+  workflow_call:
 
 jobs:
   run-multi-trigger-job:
