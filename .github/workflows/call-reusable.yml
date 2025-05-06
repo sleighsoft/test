@@ -4,4 +4,4 @@ on:
 
 jobs:
   callit:
-    uses: sleighsoft/test/.github/workflows/reusable.yml@master
+    uses: ./.github/workflows/reusable.yml
