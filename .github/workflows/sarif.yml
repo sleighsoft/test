@@ -1,0 +1,45 @@
+name: Upload SARIF to GitHub Security
+
+on:
+  workflow_dispatch:
+
+jobs:
+  analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create example SARIF file
+        run: |
+          echo '{
+            "version": "2.1.0",
+            "runs": [
+              {
+                "tool": {
+                  "driver": {
+                    "name": "Example Scanner",
+                    "version": "1.0"
+                  }
+                },
+                "results": [
+                  {
+                    "message": { "text": "Example security warning" },
+                    "locations": [
+                      {
+                        "physicalLocation": {
+                          "artifactLocation": { "uri": "example-file.txt" },
+                          "region": { "startLine": 1 }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }' > results.sarif
+
+      - name: Upload SARIF results to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
