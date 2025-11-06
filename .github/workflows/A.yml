@@ -4,4 +4,4 @@ on:
 
 jobs:
   callit:
-    uses: sleighsoft/test/.github/workflows/B.yml@v4
+    uses: sleighsoft/test/.github/workflows/B.yml@v5
